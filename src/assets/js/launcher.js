@@ -19,7 +19,7 @@ const os = require('os');
 class Launcher {
     async init() {
         this.initLog();
-        console.log('Initializing Launcher...');
+        console.log('Inicializando el lanzador...');
         this.shortcut()
         await setBackground()
         this.initFrame();
@@ -61,7 +61,7 @@ class Launcher {
     }
 
     initFrame() {
-        console.log('Initializing Frame...')
+        console.log('Inicializando marco...')
         const platform = os.platform() === 'darwin' ? "darwin" : "other";
 
         document.querySelector(`.${platform} .frame`).classList.toggle('hide')
@@ -86,7 +86,7 @@ class Launcher {
     }
 
     async initConfigClient() {
-        console.log('Initializing Config Client...')
+        console.log('Inicializando configuración del cliente...')
         let configClient = await this.db.readData('configClient')
 
         if (!configClient) {
@@ -108,7 +108,7 @@ class Launcher {
                 },
                 launcher_config: {
                     download_multi: 5,
-                    theme: 'auto',
+                    theme: 'dark',
                     closeLauncher: 'close-launcher',
                     intelEnabledMac: true
                 }
@@ -119,7 +119,7 @@ class Launcher {
     createPanels(...panels) {
         let panelsElem = document.querySelector('.panels')
         for (let panel of panels) {
-            console.log(`Initializing ${panel.name} Panel...`);
+            console.log(`Inicializando ${panel.name} Panel...`);
             let div = document.createElement('div');
             div.classList.add('panel', panel.id)
             div.innerHTML = fs.readFileSync(`${__dirname}/panels/${panel.id}.html`, 'utf8');
@@ -142,10 +142,10 @@ class Launcher {
                     continue
                 }
                 if (account.meta.type === 'Xbox') {
-                    console.log(`Account Type: ${account.meta.type} | Username: ${account.name}`);
+                    console.log(`Tipo de cuenta: ${account.meta.type} | Nombre de usuario: ${account.name}`);
                     popupRefresh.openPopup({
-                        title: 'Connexion',
-                        content: `Refresh account Type: ${account.meta.type} | Username: ${account.name}`,
+                        title: 'Conexión',
+                        content: `Actualizar tipo de cuenta: ${account.meta.type} | Nombre de usuario: ${account.name}`,
                         color: 'var(--color)',
                         background: false
                     });

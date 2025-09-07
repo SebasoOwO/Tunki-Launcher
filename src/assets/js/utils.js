@@ -24,7 +24,7 @@ async function setBackground(theme) {
     }
     let background
     let body = document.body;
-    body.className = theme ? 'dark global' : 'light global';
+    body.className = theme ? 'dark global' : 'dark global';
     if (fs.existsSync(`${__dirname}/assets/images/background/easterEgg`) && Math.random() < 0.005) {
         let backgrounds = fs.readdirSync(`${__dirname}/assets/images/background/easterEgg`);
         let Background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
@@ -32,9 +32,9 @@ async function setBackground(theme) {
     } else if (fs.existsSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`)) {
         let backgrounds = fs.readdirSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`);
         let Background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-        background = `linear-gradient(#00000080, #00000080), url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
+        background = `linear-gradient(#00000080, #f88e8eff), url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
     }
-    body.style.backgroundImage = background ? background : theme ? '#000' : '#fff';
+    body.style.backgroundImage = background ? background : theme ? '#f88e8eff' : '#f88e8eff';
     body.style.backgroundSize = 'cover';
 }
 
@@ -58,10 +58,10 @@ async function addAccount(data) {
     div.innerHTML = `
         <div class="profile-image" ${skin ? 'style="background-image: url(' + skin + ');"' : ''}></div>
         <div class="profile-infos">
-            <div class="profile-pseudo">${data.name}</div>
-            <div class="profile-uuid">${data.uuid}</div>
+            <div class="perfil-pseudo">${data.name}</div>
+            <div class="perfil-uuid">${data.uuid}</div>
         </div>
-        <div class="delete-profile" id="${data.ID}">
+        <div class="eliminar perfil" id="${data.ID}">
             <div class="icon-account-delete delete-profile-icon"></div>
         </div>
     `
@@ -103,11 +103,11 @@ async function setStatus(opt) {
     if (!statusServer.error) {
         statusServerElement.classList.remove('red')
         document.querySelector('.status-player-count').classList.remove('red')
-        statusServerElement.innerHTML = `En ligne - ${statusServer.ms} ms`
+        statusServerElement.innerHTML = `En linea - ${statusServer.ms} ms`
         playersOnline.innerHTML = statusServer.playersConnect
     } else {
         statusServerElement.classList.add('red')
-        statusServerElement.innerHTML = `Ferme - 0 ms`
+        statusServerElement.innerHTML = `Apagado - 0 ms`
         document.querySelector('.status-player-count').classList.add('red')
         playersOnline.innerHTML = '0'
     }
