@@ -1,7 +1,7 @@
 {
     "name": "Tunki-Launcher",
     "preductname": "Tunki Launcher",
-    "version": "1.0.3",
+    "version": "1.0.1",
     "description": "Launcher oficial de Tunki Studio para sus eventos.",
     "main": "src/app.js",
     "author": {
