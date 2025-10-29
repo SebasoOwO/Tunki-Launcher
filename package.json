@@ -1,7 +1,7 @@
 {
     "name": "Tunki-Launcher",
     "preductname": "Tunki Launcher",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Launcher oficial de Tunki Studio para sus eventos.",
     "main": "src/app.js",
     "author": {
@@ -9,7 +9,7 @@
         "email": "contact@luuxis.fr",
         "url": "https://github.com/luuxis"
     },
-    "url": "http://209.112.76.170:25568/launcher",
+    "url": "http://172.96.140.50:25596/launcher",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
