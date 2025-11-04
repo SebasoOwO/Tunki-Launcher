@@ -5,7 +5,7 @@
 import { config, database, logger, changePanel, appdata, setStatus, pkg, popup } from '../utils.js'
 
 const { Launch } = require('minecraft-java-core')
-const { shell, ipcRenderer } = require('electron')
+const { ipcRenderer } = require('electron');
 
 class Home {
     static id = "home";
@@ -110,6 +110,41 @@ class Home {
         let instancePopup = document.querySelector('.instance-popup')
         let instancesListPopup = document.querySelector('.instances-List')
         let instanceCloseBTN = document.querySelector('.close-popup')
+const { ipcRenderer } = require("electron");
+
+let playInstanceBTN = document.querySelector(".play-instance");
+if (playInstanceBTN) {
+  playInstanceBTN.addEventListener("click", () => {
+    const instanceName = document.querySelector(".server-status-name")?.textContent?.trim();
+    ipcRenderer.send("update-rpc", instanceName || "Instancia desconocida");
+  });
+}
+
+// Cuando cierras el juego o regresas al panel principal:
+window.addEventListener("focus", () => {
+  ipcRenderer.send("update-rpc", null);
+});
+function actualizarDiscordStatus() {
+  const serverNameEl = document.querySelector(".server-status-name");
+  const serverName = serverNameEl ? serverNameEl.textContent.trim() : "Servidor desconocido";
+
+  console.log(`[RPC] Jugando en: ${serverName}`);
+  ipcRenderer.send("update-discord-status", {
+    details: `Jugando en ${serverName}`,
+    state: "Explorando el mundo de Minecraft 🌍",
+  });
+}
+
+// Ejemplo dentro del botón jugar:
+playInstanceBTN.addEventListener("click", async () => {
+  console.log("🎮 Iniciando instancia...");
+  try {
+    // aquí va tu código que lanza Minecraft
+    actualizarDiscordStatus(); // <- aquí actualiza Discord cuando inicia
+  } catch (err) {
+    console.error("Error al lanzar la instancia:", err);
+  }
+});
 
         if (instancesList.length === 1) {
             document.querySelector('.instance-select').style.display = 'none'
@@ -335,6 +370,7 @@ class Home {
             console.log(err);
         });
     }
+    
 
     getdate(e) {
         let date = new Date(e)
