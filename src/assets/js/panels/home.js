@@ -124,27 +124,6 @@ if (playInstanceBTN) {
 window.addEventListener("focus", () => {
   ipcRenderer.send("update-rpc", null);
 });
-function actualizarDiscordStatus() {
-  const serverNameEl = document.querySelector(".server-status-name");
-  const serverName = serverNameEl ? serverNameEl.textContent.trim() : "Servidor desconocido";
-
-  console.log(`[RPC] Jugando en: ${serverName}`);
-  ipcRenderer.send("update-discord-status", {
-    details: `Jugando en ${serverName}`,
-    state: "Explorando el mundo de Minecraft 🌍",
-  });
-}
-
-// Ejemplo dentro del botón jugar:
-playInstanceBTN.addEventListener("click", async () => {
-  console.log("🎮 Iniciando instancia...");
-  try {
-    // aquí va tu código que lanza Minecraft
-    actualizarDiscordStatus(); // <- aquí actualiza Discord cuando inicia
-  } catch (err) {
-    console.error("Error al lanzar la instancia:", err);
-  }
-});
 
         if (instancesList.length === 1) {
             document.querySelector('.instance-select').style.display = 'none'
