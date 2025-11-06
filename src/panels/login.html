@@ -1,50 +1,31 @@
 <div class="container">
-    <div class="login-home login-tabs">
-        <div class="login-text">Por favor inicia sesión para jugar.</div>
-
-        <div class="login-options">
-            <button class="connect connect-home">Conexión</button>
-            <button class="cancel cancel-home"  style="display: none;">Cancelar</button>
-        </div>
+  <!-- SELECCIÓN DE MODO -->
+  <div class="login-mode login-tabs">
+    <div class="login-text">Selecciona tu tipo de inicio de sesión</div>
+    <div class="login-options">
+      <button class="connect connect-premium">Premium (Microsoft)</button>
+      <button class="connect connect-crack">No Premium</button>
     </div>
+  </div>
 
-    <div class="login-offline login-tabs">
-        <div class="login-text">Por favor ingresa tu apodo</div>
-
-        <div class="input-login">
-            <input type="text" class="email email-offline" placeholder="Pseudo" />
-        </div>
-
-        <div class="login-options">
-            <button class="connect connect-offline">Conexión</button>
-            <button class="cancel cancel-offline" style="display: none;">cancelar</button>
-        </div>
+  <!-- LOGIN MICROSOFT -->
+  <div class="login-home login-tabs" style="display:none;">
+    <div class="login-text">Inicia sesión con tu cuenta de Microsoft</div>
+    <div class="login-options">
+      <button class="connect connect-home">Conectar</button>
+      <button class="cancel cancel-home">Cancelar</button>
     </div>
+  </div>
 
-    <div class="login-AZauth login-tabs">
-        <div class="login-text">Por favor inicia sesión para jugar.</div>
-
-        <div class="input-login">
-            <input type="text" class="email email-AZauth" placeholder="E-mail" />
-            <input type="password" class="password password-AZauth" placeholder="Password" />
-        </div>
-
-        <div class="login-options">
-            <button class="connect connect-AZauth">Conexión</button>
-            <button class="cancel cancel-AZauth" style="display: none;">cancelar</button>
-        </div>
+  <!-- LOGIN CRACK -->
+  <div class="login-offline login-tabs" style="display:none;">
+    <div class="login-text">Por favor ingresa tu apodo</div>
+    <div class="input-login">
+      <input type="text" class="email email-offline" placeholder="Nombre de usuario" />
     </div>
-
-    <div class="login-AZauth-A2F login-tabs">
-        <div class="login-text">Por favor, introduzca el código de seguridad.</div>
-
-        <div class="input-login">
-            <input type="text" class="A2F A2F-AZauth" placeholder="Code" />
-        </div>
-
-        <div class="login-options">
-            <button class="connect connect-AZauth-A2F">validar</button>
-            <button class="cancel cancel-AZauth-A2F">cancelar</button>
-        </div>
+    <div class="login-options">
+      <button class="connect connect-offline">Conectar</button>
+      <button class="cancel cancel-offline">Cancelar</button>
     </div>
+  </div>
 </div>

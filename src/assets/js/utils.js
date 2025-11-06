@@ -32,7 +32,7 @@ async function setBackground(theme) {
     } else if (fs.existsSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`)) {
         let backgrounds = fs.readdirSync(`${__dirname}/assets/images/background/${theme ? 'dark' : 'light'}`);
         let Background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-        background = `linear-gradient(#00000080, #f88e8eff), url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
+        background = `linear-gradient(#00000000, hsla(0, 0%, 100%, 0.00)), url(./assets/images/background/${theme ? 'dark' : 'light'}/${Background})`;
     }
     body.style.backgroundImage = background ? background : theme ? '#f88e8eff' : '#f88e8eff';
     body.style.backgroundSize = 'cover';
@@ -59,9 +59,9 @@ async function addAccount(data) {
         <div class="profile-image" ${skin ? 'style="background-image: url(' + skin + ');"' : ''}></div>
         <div class="profile-infos">
             <div class="perfil-pseudo">${data.name}</div>
-            <div class="perfil-uuid">${data.uuid}</div>
+
         </div>
-        <div class="eliminar perfil" id="${data.ID}">
+        <div class="delete-profile" id="${data.ID}">
             <div class="icon-account-delete delete-profile-icon"></div>
         </div>
     `

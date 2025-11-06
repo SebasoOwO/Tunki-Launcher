@@ -1,50 +1,50 @@
 .login .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .login-tabs {
-    position: absolute;
-    padding: 15px;
-    background: var(--background);
-    border-radius: 15px;
-    text-align: center;
-    min-width: 40%;
-}
-
-.login-home,
-.login-offline,
-.login-AZauth,
-.login-AZauth-A2F {
-    display: none;
+  position: absolute;
+  padding: 20px;
+  background: var(--background);
+  border-radius: 15px;
+  text-align: center;
+  min-width: 40%;
+  box-shadow: 0 0 20px rgba(255, 128, 0, 0.4);
 }
 
 .login-text {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--color);
 }
 
 .connect,
 .cancel {
-    background: none;
-    color: var(--color);
-    border: solid 4px var(--element-color);
-    border-radius: 10px;
-    padding: 0.3rem 4rem;
-    font-size: inherit;
-    font-weight: bold;
-    margin: 15px 10px;
+  background: none;
+  color: var(--color);
+  border: solid 3px orange;
+  border-radius: 10px;
+  padding: 0.3rem 3rem;
+  font-size: inherit;
+  font-weight: bold;
+  margin: 15px 10px;
+  transition: 0.3s;
 }
 
-.input-login .email,
-.input-login .password,
-.A2F {
-    color: var(--color);
-    background: none;
-    border: solid 2px var(--element-color);
-    border-radius: 30px;
-    width: 50%;
-    padding: 0.4rem 1rem;
-    margin-top: 10px;
+.connect:hover {
+  background: orange;
+  color: #000;
+}
+
+.input-login input {
+  color: var(--color);
+  background: none;
+  border: solid 2px orange;
+  border-radius: 30px;
+  width: 60%;
+  padding: 0.4rem 1rem;
+  margin-top: 10px;
 }
