@@ -67,8 +67,51 @@
     margin: 0.5rem;
 }
 
+.credits-box {
+    background: var(--background-element);
+    width: 28%;
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin: 0.5rem;
+}
+
 .setting-text {
     font-size: 0.8rem;
+}
+
+.credit {
+    flex-basis: 16em; /* Reducido el ancho base */
+    max-width: 16em; /* Reducido el ancho máximo */
+    flex-grow: 0;
+    flex-shrink: 1;
+    text-align: center;
+    padding: 10px; /* Reducido el padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(5px);
+    margin-bottom: 1em; /* Añadido un margen inferior más pequeño */
+}
+
+.credit img {
+    width: 80px; /* Reducido el tamaño de la imagen */
+    height: 80px; /* Reducido el tamaño de la imagen */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px; /* Reducido el margen inferior */
+}
+
+  
+.credit h1 {
+    margin: 6px 0; /* Reducido el margen */
+    font-size: 20px; /* Reducido el tamaño de fuente */
+}
+
+.role {
+    font-size: 0.85em; /* Reducido el tamaño de fuente */
+    margin: 3px 0; /* Añadido un margen reducido */
 }
 
 .active-container-settings {

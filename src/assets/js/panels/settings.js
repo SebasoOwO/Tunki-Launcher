@@ -60,7 +60,7 @@ class Settings {
 
                     if (id == 'add') {
                         document.querySelector('.cancel-home').style.display = 'inline'
-                        return changePanel('login')
+                        return changePanel('Login')
                     }
 
                     let account = await this.db.readData('accounts', id);
