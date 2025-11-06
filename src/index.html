@@ -4,13 +4,15 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <link rel="stylesheet" href="assets/css/index.css">
     <style>
-        /* Evita scroll en toda la ventana */
+        /* Evita scroll y márgenes */
         html, body {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* evita scroll */
+            overflow: hidden;
             height: 100%;
             width: 100%;
+            color: white;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
         /* Video de fondo */
@@ -21,38 +23,69 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -2; /* detrás de overlay y splash */
+            z-index: -2;
         }
 
-        /* Overlay opcional */
+        /* Capa oscura encima del video */
         #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.3);
-            z-index: -1; /* encima del video pero detrás del splash */
+            background: rgba(0,0,0,0.4);
+            z-index: -1;
         }
 
-        /* Splash encima del video */
+        /* Contenedor principal del splash */
         #splash {
             position: relative;
             z-index: 1;
-            color: white;
             text-align: center;
-            margin-top: 20vh;
+            top: 25vh;
         }
 
+        /* Logo */
         .splash img {
             width: 128px;
             height: 128px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
+        /* Textos */
+        .splash-message,
+        .splash-author,
+        .message {
+            color: #ffffff;
+            text-shadow: 0 0 6px rgba(255,255,255,0.8); /* brillo blanco */
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        .splash-author .author {
+            font-weight: bold;
+        }
+
+        /* Barra de progreso */
         progress.progress {
-            width: 50%;
+            width: 45%;
+            height: 8px;
             margin-top: 15px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.2);
+        }
+
+        progress.progress::-webkit-progress-bar {
+            background: rgba(255,255,255,0.2);
+        }
+
+        progress.progress::-webkit-progress-value {
+            background: #ffffff;
+        }
+
+        progress.progress::-moz-progress-bar {
+            background: #ffffff;
         }
     </style>
 </head>
@@ -63,21 +96,22 @@
         Tu navegador no soporta video.
     </video>
 
-    <!-- Overlay -->
+    <!-- Capa oscura -->
     <div id="overlay"></div>
 
     <!-- Splash -->
     <div id="splash" style="display:none">
         <img class="splash" src="assets/images/icon.png" />
-        <p class="splash-message"></p>
-        <p class="splash-author"><span class="author"></span></p>
+        <p class="splash-message">Cargando...</p>
+        <p class="splash-author"><span class="author">Selvania Launcher</span></p>
         <p class="message">Buscando actualizaciones...</p>
-        <progress value="0" max="0" class="progress"></progress>
+        <progress value="0" max="100" class="progress"></progress>
     </div>
 
+    <!-- Script -->
     <script src="assets/js/index.js" type="module"></script>
     <script>
-        // Mostrar splash cuando el DOM esté listo
+        // Mostrar el splash cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', () => {
             const splash = document.getElementById('splash');
             splash.style.display = 'block';
