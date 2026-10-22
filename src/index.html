@@ -1,75 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Sin scripts inline: compatible con tu CSP (script-src 'self') -->
-<title>Panel de inicio</title>
-<link rel="stylesheet" href="home.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            color: white;
+        }
+
+        /* Video de fondo */
+        #backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* Oscurecer un poco el fondo */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: -1;
+        }
+
+        /* Splash */
+        #splash {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-top: 10vh; /* SUBIDO (antes 20vh) */
+            color: white;
+        }
+
+        .splash img {
+            width: 128px;
+            height: 128px;
+            margin-bottom: 10px;
+        }
+
+        .splash-message,
+        .splash-author,
+        .message {
+            color: white;
+        }
+
+        progress.progress {
+            width: 50%;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Fondo -->
     <video id="backgroundVideo" autoplay muted loop playsinline>
         <source src="assets/videos/index.mp4" type="video/mp4">
+        Tu navegador no soporta video.
     </video>
+
+    <!-- Overlay -->
     <div id="overlay"></div>
 
-    <main class="panel">
+    <!-- Splash -->
+    <div id="splash" style="display:none">
+        <img class="splash" src="assets/images/icon.png" />
+        <p class="splash-message"></p>
+        <p class="splash-author"><span class="author"></span></p>
+        <p class="message">Buscando actualizaciones...</p>
+        <progress value="0" max="0" class="progress"></progress>
+    </div>
 
-        <!-- Servidor -->
-        <section class="server glass">
-            <img class="logo" src="assets/images/icon.png" alt="">
-            <div class="info">
-                <div class="name">Minecraft</div>
-                <div class="status"><span class="dot"></span> Activo · 0 ms</div>
-            </div>
-            <div class="players"><b>0</b><small>Online</small></div>
-        </section>
-
-        <!-- Noticias -->
-        <section class="news">
-            <div class="news-header">
-                <div class="news-title">Noticias</div>
-                <div class="chips">
-                    <span class="chip active">Todo</span>
-                    <span class="chip">Actualizaciones</span>
-                    <span class="chip">Eventos</span>
-                </div>
-            </div>
-
-            <div class="news-list">
-                <article class="card glass error">
-                    <img class="icon" src="assets/images/icon.png" alt="">
-                    <h3>Error <span class="tag">Sistema</span></h3>
-                    <div class="date"><b>1</b>Enero</div>
-                    <p>No se puede contactar con el servidor de noticias.<br>Por favor verifique su configuración.</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Barra inferior -->
-        <footer class="bar">
-            <div class="user">
-                <img src="assets/images/steve.png" alt="">
-                <div class="who"><b>Steve</b><small>Cuenta offline</small></div>
-            </div>
-
-            <div class="play">
-                <div class="play-group">
-                    <button class="btn-play">Jugar</button>
-                    <button class="btn-more" title="Más opciones">▾</button>
-                </div>
-                <div class="progress-wrap">
-                    <progress value="0" max="100"></progress>
-                    <small>Listo para jugar</small>
-                </div>
-            </div>
-
-            <div class="tools">
-                <button class="icon-btn" title="Ajustes">⚙</button>
-            </div>
-        </footer>
-    </main>
+    <script src="assets/js/index.js" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const splash = document.getElementById('splash');
+            splash.style.display = 'block';
+        });
+    </script>
 
 </body>
 </html>
+
