@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container home-container">
     <div class="status-server">
         <img class="server-status-icon" src="assets/images/icon.png">
         <div class="server-status-infos">
@@ -11,14 +11,60 @@
     </div>
 
     <div class="home-bottom">
-        <div class="new-tab">
-    <div class="titre-tab-new">Noticias</div>
-            <div class="news-list content-scroll"></div>
+        <div class="new-tab store content-scroll">
+            <!-- Destacado principal -->
+            <section class="store-hero" style="--hero-img: none;">
+                <div class="hero-content">
+                    <span class="hero-tag">Destacado</span>
+                    <h2 class="hero-title">Torneo EL HOYO</h2>
+                    <p class="hero-text">Compite con la comunidad y gana premios exclusivos. Inscripciones abiertas hasta el 25 de octubre.</p>
+                    <div class="hero-actions">
+                        <button class="hero-btn primary">Jugar</button>
+                    </div>
+                </div>
+                <div class="hero-dots"><i class="on"></i><i></i><i></i></div>
+            </section>
+
+            <!-- Fila de mosaicos -->
+            <div class="store-row-title">Instancias</div>
+            <div class="store-tiles"></div>
+
+
+            <!-- Novedades (home.js sigue llenando .news-list) -->
+            <div class="store-row-title">Novedades</div>
+            <div class="news-list"></div>
         </div>
         <div class="social-tab">
             <div class="social-list content-scroll">
                 
             </div>
+        </div>
+        <div class="extras-tab">
+            <!-- Eventos -->
+            <section class="extra-card events-card">
+                <div class="extra-title"><span class="extra-bar"></span>Eventos</div>
+                <div class="events-list content-scroll"></div>
+            </section>
+
+            <!-- Códigos -->
+            <section class="extra-card codes-card">
+                <div class="extra-title"><span class="extra-bar"></span>Códigos</div>
+                <div class="code-form">
+                    <input class="code-input" type="text" placeholder="Escribe tu código" maxlength="24" spellcheck="false">
+                    <button class="code-redeem">Canjear</button>
+                </div>
+                <div class="code-message"></div>
+                <div class="codes-list content-scroll">
+                    <div class="code-chip" data-code="HOYO2026">
+                        <span class="code-text">HOYO2026</span>
+                        <span class="code-reward">Capa exclusiva</span>
+                    </div>
+                    <div class="code-chip" data-code="BIENVENIDO">
+                        <span class="code-text">BIENVENIDO</span>
+                        <span class="code-reward">Kit inicial</span>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 

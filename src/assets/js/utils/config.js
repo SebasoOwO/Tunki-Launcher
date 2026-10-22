@@ -10,6 +10,7 @@ let url = pkg.user ? `${pkg.url}/${pkg.user}` : pkg.url
 
 let config = `${url}/launcher/config-launcher/config.json`;
 let news = `${url}/launcher/news-launcher/news.json`;
+let events = `${url}/launcher/events-launcher/events.json`;
 
 class Config {
     GetConfig() {
@@ -24,7 +25,7 @@ class Config {
     }
 
     async getInstanceList() {
-        let urlInstance = `${url}/files`
+        let urlInstance = `${url}/instances.json`
         let instances = await nodeFetch(urlInstance).then(res => res.json()).catch(err => err)
         let instancesList = []
         instances = Object.entries(instances)
@@ -35,6 +36,15 @@ class Config {
             instancesList.push(instance)
         }
         return instancesList
+    }
+
+    async getEvents() {
+        return new Promise((resolve, reject) => {
+            nodeFetch(events).then(async res => {
+                if (res.status === 200) return resolve(res.json());
+                else return reject({ error: { code: res.statusText, message: 'servidor no accesible' } });
+            }).catch(error => reject({ error }))
+        })
     }
 
     async getNews() {

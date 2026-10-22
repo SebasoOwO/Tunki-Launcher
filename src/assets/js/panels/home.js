@@ -3,6 +3,7 @@
  * Luuxis License v1.0 (voir fichier LICENSE pour les détails en FR/EN)
  */
 import { config, database, logger, changePanel, appdata, setStatus, pkg, popup } from '../utils.js'
+import { initHomeExtras, renderInstances, renderEvents } from '../home-extras.js'
 
 const { Launch } = require('minecraft-java-core')
 const { ipcRenderer } = require('electron');
@@ -15,6 +16,8 @@ class Home {
         this.news()
         this.socialLick()
         this.instancesSelect()
+        initHomeExtras()
+        this.events()
         document.querySelector('.settings-btn').addEventListener('click', e => changePanel('settings'))
     }
 
@@ -90,6 +93,11 @@ class Home {
         }
     }
 
+    async events() {
+        let events = await config.getEvents().then(res => res).catch(err => null)
+        renderEvents(events)
+    }
+
     socialLick() {
         let socials = document.querySelectorAll('.social-block')
 
@@ -154,6 +162,19 @@ window.addEventListener("focus", () => {
             } else console.log(`Initializing instance ${instance.name}...`)
             if (instance.name == instanceSelect) setStatus(instance.status)
         }
+
+        // ---- Inicio tipo tienda: mosaicos con tus instancias ----
+        const visibleInstances = instancesList.filter(i => !i.whitelistActive || (i.whitelist || []).includes(auth?.name))
+        renderInstances(visibleInstances, {
+            selectedName: instanceSelect,
+            onSelect: async (inst) => {
+                let cfg = await this.db.readData('configClient')
+                cfg.instance_selct = inst.name
+                await this.db.updateData('configClient', cfg)
+                await setStatus(inst.status)
+            },
+            onPlay: () => this.startGame()
+        })
 
         instancePopup.addEventListener('click', async e => {
             let configClient = await this.db.readData('configClient')
@@ -263,6 +284,15 @@ window.addEventListener("focus", () => {
         }
 
         launch.Launch(opt);
+
+        // Si la librería falla por dentro (files.json con 404 o inválido, sin red...), la promesa se rechaza
+        // sin avisar y el launcher se quedaba en "Conexión...". Aquí se convierte en un error visible.
+        const onUnhandled = (ev) => {
+            ev.preventDefault()
+            window.removeEventListener('unhandledrejection', onUnhandled)
+            launch.emit('error', { error: `No se pudo preparar el juego: ${ev.reason?.message || ev.reason}` })
+        }
+        window.addEventListener('unhandledrejection', onUnhandled)
 
         playInstanceBTN.style.display = "none"
         infoStartingBOX.style.display = "block"
