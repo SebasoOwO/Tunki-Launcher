@@ -9,7 +9,7 @@
         "email": "contact@luuxis.fr",
         "url": "https://github.com/luuxis"
     },
-    "url": "https://sebasoowo.github.io/tunkilauncher/",
+    "url":"https://raw.githubusercontent.com/MiclaStudio/tunkilauncher/main",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
