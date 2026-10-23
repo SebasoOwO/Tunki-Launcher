@@ -1,31 +1,48 @@
-<div class="container">
-  <!-- SELECCIÓN DE MODO -->
-  <div class="login-mode login-tabs">
-    <div class="login-text">Selecciona tu tipo de inicio de sesión</div>
-    <div class="login-options">
-      <button class="connect connect-premium">Premium (Microsoft)</button>
-      <button class="connect connect-crack">No Premium</button>
+<div class="container login-container">
+  <aside class="login-side">
+    <div class="login-brand">
+      <img class="login-logo" src="assets/images/icon.png" alt="">
+      <div class="login-title"><b>Tunki</b> Launcher</div>
     </div>
-  </div>
 
-  <!-- LOGIN MICROSOFT -->
-  <div class="login-home login-tabs" style="display:none;">
-    <div class="login-text">Inicia sesión con tu cuenta de Microsoft</div>
-    <div class="login-options">
-      <button class="connect connect-home">Conectar</button>
-      <button class="cancel cancel-home">Cancelar</button>
+    <!-- SELECCIÓN DE MODO -->
+    <div class="login-mode login-tabs">
+      <div class="login-body">
+        <div class="login-text">Inicia sesión para jugar</div>
+        <div class="login-options">
+          <button class="connect connect-premium">
+            <svg class="ms-logo" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9"/><rect x="11" y="1" width="9" height="9"/><rect x="1" y="11" width="9" height="9"/><rect x="11" y="11" width="9" height="9"/></svg>
+            Login con Microsoft
+          </button>
+        </div>
+      </div>
+      <button class="connect-crack">Login offline</button>
     </div>
-  </div>
 
-  <!-- LOGIN CRACK -->
-  <div class="login-offline login-tabs" style="display:none;">
-    <div class="login-text">Por favor ingresa tu apodo</div>
-    <div class="input-login">
-      <input type="text" class="email email-offline" placeholder="Nombre de usuario" />
+    <!-- LOGIN MICROSOFT -->
+    <div class="login-home login-tabs" style="display:none;">
+      <div class="login-body">
+        <div class="login-text">Se abrirá una ventana para iniciar sesión con tu cuenta de Microsoft</div>
+        <div class="login-options">
+          <button class="connect connect-home">Conectar</button>
+          <button class="cancel cancel-home">Volver</button>
+        </div>
+      </div>
     </div>
-    <div class="login-options">
-      <button class="connect connect-offline">Conectar</button>
-      <button class="cancel cancel-offline">Cancelar</button>
+
+    <!-- LOGIN OFFLINE -->
+    <div class="login-offline login-tabs" style="display:none;">
+      <div class="login-body">
+        <div class="login-text">Elige tu nombre de jugador</div>
+        <div class="input-login">
+          <input type="text" class="email email-offline" placeholder="Nombre de usuario" maxlength="16" spellcheck="false" />
+        </div>
+        <div class="login-options">
+          <button class="connect connect-offline">Conectar</button>
+          <button class="cancel cancel-offline">Volver</button>
+        </div>
+      </div>
     </div>
-  </div>
+  </aside>
 </div>
+
