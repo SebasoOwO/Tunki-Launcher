@@ -5,7 +5,6 @@
 const CODES = {
     HOYO2026: 'Capa exclusiva',
     BIENVENIDO: 'Kit inicial',
-    MADMAX: 'Capa de Mad Max',
 };
 
 const STORAGE_KEY = 'redeemed-codes';
@@ -101,6 +100,76 @@ function paintArt(el, ui, index) {
 
 const loaderLabel = (l) => (l && l !== 'none' ? l.charAt(0).toUpperCase() + l.slice(1) : 'Vanilla');
 
+const VIDEO_EXT = /\.(mp4|webm|ogv)(\?.*)?$/i;
+const isMediaUrl = (u) => typeof u === 'string' && /^https?:\/\//i.test(u.trim());
+
+function setMedia(box, url) {
+    const prev = box.querySelector('.instance-bg');
+    if (prev && prev.dataset.src === (url || '')) return;
+    const drop = (el) => { el.classList.remove('show'); setTimeout(() => el.remove(), 700); };
+    if (!url) { if (prev) drop(prev); return; }
+
+    const isVideo = VIDEO_EXT.test(url);
+    const el = document.createElement(isVideo ? 'video' : 'img');
+    el.className = 'instance-bg';
+    el.dataset.src = url;
+    if (isVideo) { el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true; }
+    const ready = () => {
+        requestAnimationFrame(() => el.classList.add('show'));
+        if (prev) drop(prev);
+    };
+    el.addEventListener(isVideo ? 'loadeddata' : 'load', ready, { once: true });
+    // Si no carga, se queda el fondo anterior/predeterminado
+    el.addEventListener('error', () => el.remove(), { once: true });
+    el.src = url;
+    box.prepend(el);
+    if (isVideo) { const r = el.play(); if (r && r.catch) r.catch(() => {}); }
+}
+
+/**
+ * Muestra la cabeza del jugador. Las cuentas Microsoft ya traen la skin y launcher.js la pone sola;
+ * las cuentas offline no la traen, así que se pide por nombre de usuario.
+ */
+export function showPlayerHead(auth) {
+    const head = document.querySelector('.player-head');
+    if (!head || !auth || !auth.name) return;
+    if (auth?.profile?.skins?.[0]?.base64) return; // esa ruta la maneja utils.js
+    const name = String(auth.name).replace(/[^A-Za-z0-9_]/g, '').slice(0, 16);
+    if (!name) return;
+    const url = `https://mc-heads.net/avatar/${name}/64`;
+    const img = new Image();
+    img.onload = () => { head.style.backgroundImage = `url(${url})`; };
+    img.src = url; // si falla, se queda el recuadro vacío
+}
+
+/** Cambia el fondo según la instancia: ui.bgMedia (imagen/video) o ui.bg (color). Sin nada => predeterminado. */
+export function applyInstanceBackground(inst) {
+    const box = document.querySelector('.home-container');
+    if (!box) return;
+    const ui = (inst && inst.ui) || {};
+
+    setMedia(box, isMediaUrl(ui.bgMedia) ? ui.bgMedia.trim() : '');
+
+    const HEX = /^#[0-9a-f]{6}$/i;
+    const g = ui.bgGradient;
+    let tint = '';
+    if (!isMediaUrl(ui.bgMedia)) {
+        if (g && HEX.test(g.a) && HEX.test(g.b)) {
+            const ang = Number.isFinite(Number(g.angle)) ? Number(g.angle) : 135;
+            tint = `linear-gradient(${ang}deg, ${g.a}, ${g.b})`;
+        } else if (typeof ui.bg === 'string' && HEX.test(ui.bg)) {
+            tint = ui.bg;
+        }
+    }
+    if (tint) {
+        box.style.setProperty('--bg-tint', tint);
+        box.classList.add('has-bg-tint');
+    } else {
+        box.classList.remove('has-bg-tint');
+        box.style.removeProperty('--bg-tint');
+    }
+}
+
 export function renderInstances(list, { onSelect, onPlay, selectedName } = {}) {
     const tilesEl = document.querySelector('.store-tiles');
     const items = normalize(list);
@@ -117,9 +186,12 @@ export function renderInstances(list, { onSelect, onPlay, selectedName } = {}) {
     const select = async (item, tile) => {
         tilesEl.querySelectorAll('.tile.selected').forEach((t) => t.classList.remove('selected'));
         if (tile) tile.classList.add('selected');
+        applyInstanceBackground(item.raw);
         document.dispatchEvent(new CustomEvent('instance-selected', { detail: item.raw }));
         if (typeof onSelect === 'function') await onSelect(item.raw);
     };
+
+    applyInstanceBackground((items.find((x) => x.name === selectedName) || {}).raw);
 
     items.forEach((item, index) => {
         const tile = document.createElement('article');

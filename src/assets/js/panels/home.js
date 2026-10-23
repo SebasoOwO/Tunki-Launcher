@@ -3,7 +3,7 @@
  * Luuxis License v1.0 (voir fichier LICENSE pour les détails en FR/EN)
  */
 import { config, database, logger, changePanel, appdata, setStatus, pkg, popup } from '../utils.js'
-import { initHomeExtras, renderInstances, renderEvents } from '../home-extras.js'
+import { initHomeExtras, renderInstances, renderEvents, applyInstanceBackground, showPlayerHead } from '../home-extras.js'
 
 const { Launch } = require('minecraft-java-core')
 const { ipcRenderer } = require('electron');
@@ -111,6 +111,7 @@ class Home {
     async instancesSelect() {
         let configClient = await this.db.readData('configClient')
         let auth = await this.db.readData('accounts', configClient.account_selected)
+        showPlayerHead(auth)
         let instancesList = await config.getInstanceList()
         let instanceSelect = instancesList.find(i => i.name == configClient?.instance_selct) ? configClient?.instance_selct : null
 
@@ -193,6 +194,7 @@ window.addEventListener("focus", () => {
                 let instance = await config.getInstanceList()
                 let options = instance.find(i => i.name == configClient.instance_selct)
                 await setStatus(options.status)
+                applyInstanceBackground(options)
             }
         })
 

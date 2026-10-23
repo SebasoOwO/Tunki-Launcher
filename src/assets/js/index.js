@@ -119,7 +119,10 @@ class Splash {
             this.startLauncher();
         }).catch(e => {
             console.error(e);
-            return this.shutdown("No se detectó conexión a Internet,<br>inténtelo de nuevo más tarde.");
+            // Detalle técnico para saber qué falló realmente (404, DNS, JSON inválido...)
+            const err = (e && e.error) ? e.error : e;
+            const detalle = [err && err.code, err && err.message].filter(Boolean).join(' - ') || String(err);
+            return this.shutdown(`No se pudo leer la configuración.<br><small>${pkg.url}<br>${detalle}</small>`, 20);
         })
     }
 
@@ -129,9 +132,9 @@ class Splash {
         ipcRenderer.send('update-window-close');
     }
 
-    shutdown(text) {
-        this.setStatus(`${text}<br>Parada en 5s`);
-        let i = 4;
+    shutdown(text, seconds = 5) {
+        this.setStatus(`${text}<br>Parada en ${seconds}s`);
+        let i = seconds - 1;
         setInterval(() => {
             this.setStatus(`${text}<br>Parada en ${i--}s`);
             if (i < 0) ipcRenderer.send('update-window-close');
